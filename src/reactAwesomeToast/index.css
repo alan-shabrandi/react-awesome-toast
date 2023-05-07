@@ -1,0 +1,130 @@
+  .toast {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    width: 320px;
+    color: #FAFAFA;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 14px 12px;
+    z-index: 1000000000;
+    direction: rtl;
+  }
+  .toast_dark {
+    background-color: #F6F8FF;
+    color: #222831;
+  }
+  .toast_light {
+    background-color: #303034;
+    color: #E6E6E6;
+  }
+  .toast_title {
+    margin-left: auto;
+    margin-right: 10px;
+    font-size: 14px;
+  }
+  .toast_closeIcon {
+    cursor: pointer;
+  }
+  .toast_closeIcon-dark {
+    fill: #222831;
+  }
+  .toast_closeIcon-light {
+    fill: #E6E6E6;
+  }
+  .toast_undo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 18px;
+  }
+  .toast_undo-dark {
+    color: #2991FF;
+  }
+  .toast_undo-light {
+    color: #9FCDFF;
+  }
+  .toast_undo-fill-dark {
+    fill: #2991FF;
+  }
+  .toast_undo-fill-light {
+    fill: #9FCDFF;
+  }
+  .toast_progressBar {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    width: 100%;
+    height: 5px;
+  }
+  .toast_progressBar-inner {
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    height: 5px;
+  }
+  .toast_progressBar-lime-dark {
+    background-color: #65A30D;
+  }
+  .toast_progressBar-lime-light {
+    background-color: #84CC16;
+  }
+  .toast_progressBar-orange-dark {
+    background-color: #F15F22;
+  }
+  .toast_progressBar-orange-light {
+    background-color: #F3732B;
+  }
+  .toast_progressBar-red-dark {
+    background-color: #DC2626;
+  }
+  .toast_progressBar-red-light {
+    background-color: #EF4444;
+  }
+  
+  .fill_gray_color {
+    fill: #FAFAFA;
+  }
+  .fill-lime-dark {
+    fill: #65A30D;
+  }
+  .fill-lime-light {
+    fill: #84CC16;
+  }
+  .fill-orange-dark {
+    fill: #F15F22;
+  }
+  .fill-orange-light {
+    fill: #F3732B;
+  }
+  .fill-red-dark {
+    fill: #DC2626;
+  }
+  .fill-red-light {
+    fill: #EF4444;
+  }
+  
+.promise-loader {
+  border: 2px solid #F6F8FF;
+  border-radius: 50%;
+  border-top: 3px solid #303034;
+  width: 12px;
+  height: 12px;
+  -webkit-animation: spin 0.5s linear infinite; /* Safari */
+  animation: spin 0.5s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
