@@ -43,7 +43,7 @@ const ToastContainer = (props: ToastProps) => {
                     <Icon type={toastInfo.type} theme={toastInfo.theme}/>
                     <p className="toast_title">{toastInfo.title}</p>
                     {(toastInfo.type !== "promise" && toastInfo.callbackFunction) && <Undo callbackTitle={toastInfo.callbackTitle} callbackFunction={toastInfo.callbackFunction} theme={toastInfo.theme}/>}
-                    {(toastInfo.type !== "promise" && toastInfo.autoClose) && <ProgressBar type={toastInfo.type} positionX={toastPosition.left !== "unset" ? "left" : "right"} setShowToast={setShowToast} autoClose={toastInfo.autoClose} theme={toastInfo.theme}/>}
+                    {(toastInfo.type !== "promise" && toastInfo.autoClose) && <ProgressBar type={toastInfo.type} positionX={toastPosition.left !== "unset" ? "left" : "right"} showToast={showToast} setShowToast={setShowToast} autoClose={toastInfo.autoClose} theme={toastInfo.theme}/>}
                     {toastInfo.type !== "promise" && <CloseIcon className={`toast_closeIcon ${toastInfo.theme === "dark" ? "toast_closeIcon-dark" : "toast_closeIcon-light"}`} onClick={() => setShowToast(false)} />}
                 </div>
             )}

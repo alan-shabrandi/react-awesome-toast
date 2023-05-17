@@ -5,7 +5,8 @@ export interface ToastProps {
     theme?: string,
     autoClose?: number | false,
     callbackTitle?: string,
-    callbackFunction?: () => void
+    callbackFunction?: () => void,
+    status?: boolean | undefined
 }
 
 export interface ToastFunctionProps {
@@ -26,6 +27,7 @@ export interface IconProps {
 export interface ProgressBarProps {
     type: string,
     positionX: string,
+    showToast:boolean | undefined,
     setShowToast: (value: boolean) => void,
     autoClose?: number | false,
     theme?:string,
