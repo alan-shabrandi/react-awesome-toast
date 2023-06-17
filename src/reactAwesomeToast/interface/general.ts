@@ -1,12 +1,13 @@
 export interface ToastProps {    
+    id?: string,
     title?: string,
     type?: "success" | "error" | "warning" | "promise",
     position?: "top-right" | "top-left" | "bottom-right" | "bottom-left",
     theme?: string,
     autoClose?: number | false,
     callbackTitle?: string,
-    callbackFunction?: () => void,
-    status?: boolean | undefined
+    callbackFunction?: () => void | Promise<any>,
+    status?: boolean | undefined,
 }
 
 export interface ToastFunctionProps {
@@ -16,7 +17,7 @@ export interface ToastFunctionProps {
     theme?: string,
     autoClose?: number | false,
     callbackTitle?: string,
-    callbackFunction?: () => void,
+    callbackFunction?: () => void | Promise<any>,
 }
 
 export interface IconProps {
@@ -34,9 +35,12 @@ export interface ProgressBarProps {
 }
 
 export interface UndoProps {
+    toastInfo: ToastProps,
+    toasts: ToastProps[],
+    setToasts: (value: ToastProps[]) => void,
     callbackTitle?: string,
-    callbackFunction?: () => void,
-    theme?:string
+    callbackFunction?: () => void | Promise<any>,
+    theme?:string,
 }
 
 export interface Positions {
@@ -44,4 +48,11 @@ export interface Positions {
     bottom: "unset" | number,
     left: "unset" | number,
     right: "unset" | number,
+}
+
+export interface SingleToastProps {
+    toastInfo: ToastProps,
+    toastPosition: any,
+    toasts: ToastProps[],
+    setToasts: (value: ToastProps[]) => void
 }

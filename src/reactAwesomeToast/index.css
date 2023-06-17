@@ -1,6 +1,12 @@
+  .toast-wrapper {
+    position: fixed;
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
+  }
+  
   .toast {
     display: flex;
-    position: fixed;
     align-items: center;
     width: 320px;
     color: #FAFAFA;
