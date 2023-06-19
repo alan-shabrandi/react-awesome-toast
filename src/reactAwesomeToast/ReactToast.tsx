@@ -8,39 +8,40 @@ import emitter from "./EventEmitter";
 import SingleToast from "./components/singleToast";
 
 const ToastContainer = (props: ToastProps) => {
-    const [toastInfo, setToastInfo] = useState<ToastProps>({ position:"bottom-right", theme:"light", autoClose:3000, callbackTitle:"برگرداندن"})
+    const [toastInfo, setToastInfo] = useState<ToastProps>({ position: "bottom-right", theme: "light", autoClose: 3000, callbackTitle: "برگرداندن" })
     const [isNewToast, setIsNewToast] = useState<boolean>(false);
     const [toasts, setToasts] = useState<ToastProps[]>([]);
 
     useEffect(() => {
-        emitter.addListener("toast", (data:ToastFunctionProps) => {
+        emitter.addListener("toast", (data: ToastFunctionProps) => {
             setToastInfo((prev) => {
                 const props1 = removeUndefinedProperties(props);
                 const data1 = removeUndefinedProperties(data);
-                return ({...prev, ...props1, ...data1, id: uuidGenerator()})
+                return ({ ...prev, ...props1, ...data1, id: uuidGenerator() })
             });
             setIsNewToast(true);
         });
-    },[])
+    }, [])
 
     useEffect(() => {
-        if(isNewToast) {
+        if (isNewToast) {
             setIsNewToast(false);
-            setToasts([...toasts, toastInfo])
+            setToasts([...toasts, toastInfo]);
+            setToastInfo({ position: "bottom-right", theme: "light", autoClose: 3000, callbackTitle: "برگرداندن" });
         }
-    },[isNewToast])
+    }, [isNewToast])
 
     const toastPosition = handlePosition(toastInfo.position)
-    
+
     return (
         <div className="toast-wrapper" style={{ ...toastPosition }}>
-            {toasts.map((toast: ToastProps) => <SingleToast key={toast.id} toastInfo={toast} toastPosition={toastPosition} toasts={toasts} setToasts={setToasts}/>)}
+            {toasts.map((toast: ToastProps) => <SingleToast key={toast.id} toastInfo={toast} toastPosition={toastPosition} toasts={toasts} setToasts={setToasts} />)}
         </div>
     )
 }
 
 export default ToastContainer;
 
-export const toast = ({ title, type, position, theme, autoClose, callbackTitle, callbackFunction}: ToastFunctionProps) => {
-    emitter.emit("toast",{ title, type, position, theme, autoClose, callbackTitle, callbackFunction})
+export const toast = ({ title, type, position, theme, autoClose, callbackTitle, callbackFunction }: ToastFunctionProps) => {
+    emitter.emit("toast", { title, type, position, theme, autoClose, callbackTitle, callbackFunction })
 }

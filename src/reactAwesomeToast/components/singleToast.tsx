@@ -6,7 +6,7 @@ import ProgressBar from "../components/progressBar";
 import CloseIcon from "../assets/icons/closeIcon";
 import { SingleToastProps } from "../interface/general";
 
-const SingleToast = ({toastInfo, toastPosition, toasts, setToasts}: SingleToastProps) => {
+const SingleToast = ({ toastInfo, toastPosition, toasts, setToasts }: SingleToastProps) => {
     const [showToast, setShowToast] = useState<boolean | undefined>(true);
 
     useEffect(() => {
@@ -26,7 +26,7 @@ const SingleToast = ({toastInfo, toastPosition, toasts, setToasts}: SingleToastP
                 >
                     <Icon type={toastInfo.type} theme={toastInfo.theme} />
                     <p className="toast_title">{toastInfo.title}</p>
-                    {(toastInfo.type !== "promise" && toastInfo.callbackFunction) && <Undo toastInfo={toastInfo} callbackTitle={toastInfo.callbackTitle} callbackFunction={toastInfo.callbackFunction} theme={toastInfo.theme} toasts={toasts} setToasts={setToasts}/>}
+                    {(toastInfo.type !== "promise" && toastInfo.callbackFunction) && <Undo toastInfo={toastInfo} callbackTitle={toastInfo.callbackTitle} callbackFunction={toastInfo.callbackFunction} theme={toastInfo.theme} toasts={toasts} setToasts={setToasts} />}
                     {(toastInfo.type !== "promise" && toastInfo.autoClose) && <ProgressBar type={toastInfo.type} positionX={toastPosition.left !== "unset" ? "left" : "right"} showToast={showToast} setShowToast={setShowToast} autoClose={toastInfo.autoClose} theme={toastInfo.theme} />}
                     {toastInfo.type !== "promise" && <CloseIcon className={`toast_closeIcon ${toastInfo.theme === "dark" ? "toast_closeIcon-dark" : "toast_closeIcon-light"}`} onClick={() => setShowToast(false)} />}
                 </div>
