@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from "react"
 import { ProgressBarProps } from "../interface/general";
 
-const ProgressBar = ({type, positionX, showToast, setShowToast, autoClose, theme}: ProgressBarProps) => {
+const ProgressBar = ({ type, positionX, showToast, setShowToast, autoClose, theme }: ProgressBarProps) => {
 
     const [width, setWidth] = useState<number>(100);
 
     const intervalRef = useRef<any>(null)
 
     useEffect(() => {
-        if(showToast) setWidth(100);
-        if(autoClose && showToast) intervalRef.current = setInterval(() => setWidth((prev) => prev - (1000 / autoClose)), 10)
+        if (showToast) setWidth(100);
+        if (autoClose && showToast) intervalRef.current = setInterval(() => setWidth((prev) => prev - (1000 / autoClose)), 10)
 
         return () => clearInterval(intervalRef.current);
     }, [showToast])

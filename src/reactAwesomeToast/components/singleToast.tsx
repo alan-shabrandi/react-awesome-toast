@@ -23,6 +23,7 @@ const SingleToast = ({ toastInfo, toastPosition, toasts, setToasts }: SingleToas
                 <div
                     className={`toast ${toastInfo.theme === "dark" ? "toast_dark" : "toast_light"} animate__animated ${toastAnimation}`}
                     style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
+                    id={toastInfo.id}
                 >
                     <Icon type={toastInfo.type} theme={toastInfo.theme} />
                     <p className="toast_title">{toastInfo.title}</p>

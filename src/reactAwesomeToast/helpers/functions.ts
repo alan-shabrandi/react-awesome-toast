@@ -28,7 +28,7 @@ export const handleAnimation = (showToast: boolean | undefined, leftPosition: st
     }
 }
 
-export const removeUndefinedProperties = (obj:any) => Object.fromEntries(Object.entries(obj).filter(([_, v]) => v !== undefined));
+export const removeUndefinedProperties = (obj: any) => Object.fromEntries(Object.entries(obj).filter(([_, v]) => v !== undefined));
 
 export const uuidGenerator = () => {
     let uuid = "xxxxxxxx-xxxx-Mxxx-Nxxx-x".replace(/[xMN]/g, (char) => {

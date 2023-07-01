@@ -17,9 +17,15 @@ const ToastContainer = (props: ToastProps) => {
             setToastInfo((prev) => {
                 const props1 = removeUndefinedProperties(props);
                 const data1 = removeUndefinedProperties(data);
-                return ({ ...prev, ...props1, ...data1, id: uuidGenerator() })
+                return ({ ...prev, ...props1, ...data1, id: data.id ? `react-awesome-toast-${data.id}` : uuidGenerator() })
             });
             setIsNewToast(true);
+        });
+        emitter.addListener("closeToast", (data: string) => {
+            setToasts((prev) => {
+                const filteredToasts = prev.filter((toast: ToastProps) => toast.id !== `react-awesome-toast-${data}`)
+                return filteredToasts;
+            })
         });
     }, [])
 
@@ -34,14 +40,20 @@ const ToastContainer = (props: ToastProps) => {
     const toastPosition = handlePosition(toastInfo.position)
 
     return (
-        <div className="toast-wrapper" style={{ ...toastPosition }}>
-            {toasts.map((toast: ToastProps) => <SingleToast key={toast.id} toastInfo={toast} toastPosition={toastPosition} toasts={toasts} setToasts={setToasts} />)}
-        </div>
+        <>
+            {toasts.length ? (
+                <div className="toast-wrapper" style={{ ...toastPosition }}>
+                    {toasts.map((toast: ToastProps) => <SingleToast key={toast.id} toastInfo={toast} toastPosition={toastPosition} toasts={toasts} setToasts={setToasts} />)}
+                </div>
+            ) : <></>}
+        </>
     )
 }
 
 export default ToastContainer;
 
-export const toast = ({ title, type, position, theme, autoClose, callbackTitle, callbackFunction }: ToastFunctionProps) => {
-    emitter.emit("toast", { title, type, position, theme, autoClose, callbackTitle, callbackFunction })
+export const toast = ({ id, title, type, position, theme, autoClose, callbackTitle, callbackFunction }: ToastFunctionProps) => {
+    emitter.emit("toast", { id, title, type, position, theme, autoClose, callbackTitle, callbackFunction })
 }
+
+export const closeToast = (id: string) => emitter.emit("closeToast", id);
