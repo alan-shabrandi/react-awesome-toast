@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { handlePosition, removeUndefinedProperties, uuidGenerator } from "./helpers/functions";
+import { handlePosition, removeUndefinedProperties } from "./helpers/functions";
 
 import { ToastFunctionProps, ToastProps } from "./interface/general";
 import "./index.css"
@@ -8,18 +8,14 @@ import emitter from "./EventEmitter";
 import SingleToast from "./components/singleToast";
 
 const ToastContainer = (props: ToastProps) => {
-    const [toastInfo, setToastInfo] = useState<ToastProps>({ position: "bottom-right", theme: "light", autoClose: 3000, callbackTitle: "برگرداندن" })
-    const [isNewToast, setIsNewToast] = useState<boolean>(false);
     const [toasts, setToasts] = useState<ToastProps[]>([]);
+    const toastInfo: ToastProps = { position: "bottom-right", theme: "light", autoClose: 3000, callbackTitle: "برگرداندن" }
 
     useEffect(() => {
         emitter.addListener("toast", (data: ToastFunctionProps) => {
-            setToastInfo((prev) => {
-                const props1 = removeUndefinedProperties(props);
-                const data1 = removeUndefinedProperties(data);
-                return ({ ...prev, ...props1, ...data1, id: data.id ? `react-awesome-toast-${data.id}` : uuidGenerator() })
-            });
-            setIsNewToast(true);
+            const props1 = removeUndefinedProperties(props);
+            const data1 = removeUndefinedProperties(data);
+            setToasts((toasts: ToastProps[]) => [...toasts, { ...toastInfo, ...props1, ...data1, id: data.id ? `react-awesome-toast-${data.id}` : undefined }]);
         });
         emitter.addListener("closeToast", (data: string) => {
             setToasts((prev) => {
@@ -27,15 +23,9 @@ const ToastContainer = (props: ToastProps) => {
                 return filteredToasts;
             })
         });
-    }, [])
 
-    useEffect(() => {
-        if (isNewToast) {
-            setIsNewToast(false);
-            setToasts([...toasts, toastInfo]);
-            setToastInfo({ position: "bottom-right", theme: "light", autoClose: 3000, callbackTitle: "برگرداندن" });
-        }
-    }, [isNewToast])
+        return () => emitter.removeAllListeners();
+    }, [])
 
     const toastPosition = handlePosition(toastInfo.position)
 
