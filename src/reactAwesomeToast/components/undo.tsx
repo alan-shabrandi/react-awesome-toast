@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import UndoIcon from "../assets/icons/undoIcon";
-import { ToastProps, UndoProps } from "../interface/general";
-import { toast } from "../ReactToast";
+import { UndoProps } from "../interface/general";
+import { closeToast, toast } from "../ReactToastify";
 
-const Undo = ({ toastInfo, callbackTitle, callbackFunction, theme, toasts, setToasts }: UndoProps) => {
+const Undo = ({ toastInfo, callbackTitle, callbackFunction, theme }: UndoProps) => {
 
     const [isClicked, setIsClicked] = useState<boolean>(false);
 
@@ -11,14 +11,13 @@ const Undo = ({ toastInfo, callbackTitle, callbackFunction, theme, toasts, setTo
         setIsClicked(true);
         const promise = callbackFunction();
         if (promise && !isClicked) {
-            toast({ title: "در حال بازگردانی", type: "promise" });
+            toast({ title: "در حال بازگردانی", type: "promise", id: "toast-promise" });
             promise.then(() => {
+                closeToast("toast-promise");
                 toast({ ...toastInfo, title: "عملیات بازگردانده شد.", type: toastInfo.type ?? "success", callbackFunction: null });
             }).catch(() => {
+                closeToast("toast-promise");
                 toast({ ...toastInfo, title: "خطا در انجام عملیات", type: "error", callbackFunction: null });
-            }).finally(() => {
-                const filteredToasts = toasts.filter((toast: ToastProps) => toast.type !== "promise");
-                setToasts(filteredToasts);
             });
         } else setIsClicked(false);
     }

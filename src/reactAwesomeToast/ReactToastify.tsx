@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { handlePosition, removeUndefinedProperties } from "./helpers/functions";
 
 import { ToastFunctionProps, ToastProps } from "./interface/general";
@@ -9,13 +9,12 @@ import SingleToast from "./components/singleToast";
 
 const ToastContainer = (props: ToastProps) => {
     const [toasts, setToasts] = useState<ToastProps[]>([]);
-    const toastInfo: ToastProps = { position: "bottom-right", theme: "light", autoClose: 3000, callbackTitle: "برگرداندن" }
+    let toastInfo = useRef<ToastProps>({ position: "bottom-right", theme: "light", autoClose: 3000, callbackTitle: "برگرداندن" })
 
     useEffect(() => {
         emitter.addListener("toast", (data: ToastFunctionProps) => {
-            const props1 = removeUndefinedProperties(props);
             const data1 = removeUndefinedProperties(data);
-            setToasts((toasts: ToastProps[]) => [...toasts, { ...toastInfo, ...props1, ...data1, id: data.id ? `react-awesome-toast-${data.id}` : undefined }]);
+            setToasts((toasts: ToastProps[]) => [...toasts, { ...toastInfo.current, ...data1, id: data.id ? `react-awesome-toast-${data.id}` : undefined }]);
         });
         emitter.addListener("closeToast", (data: string) => {
             setToasts((prev) => {
@@ -27,7 +26,11 @@ const ToastContainer = (props: ToastProps) => {
         return () => emitter.removeAllListeners();
     }, [])
 
-    const toastPosition = handlePosition(toastInfo.position)
+    useEffect(() => {
+        toastInfo.current = { ...toastInfo.current, ...removeUndefinedProperties(props)}
+    },[props.theme])
+
+    const toastPosition = handlePosition(toastInfo.current.position)
 
     return (
         <>

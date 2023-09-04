@@ -6,7 +6,7 @@ import ProgressBar from "../components/progressBar";
 import CloseIcon from "../assets/icons/closeIcon";
 import { SingleToastProps } from "../interface/general";
 
-const SingleToast = ({ toastInfo, toastPosition, toasts, setToasts }: SingleToastProps) => {
+const SingleToast = ({toastInfo, toastPosition, toasts, setToasts}: SingleToastProps) => {
     const [showToast, setShowToast] = useState<boolean | undefined>(true);
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 {
   "name": "react-awesome-toast",
-  "version": "1.0.12",
-  "private": false,
+  "version": "1.0.29",
+  "private": true,
   "license": "MIT",
   "description": "React notification",
   "keywords": [
@@ -34,12 +34,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alan-shabrandi/react-awesome-toast.git"
-  },
-    "homepage": "https://github.com/alan-shabrandi/react-awesome-toast#readme",
-    "author": "Alan shabrandi  <alan.shabrandi@gmail.com> (https://github.com/alan-shabrandi)",
   "eslintConfig": {
     "extends": [
       "react-app",
